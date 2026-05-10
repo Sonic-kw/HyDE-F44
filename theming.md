@@ -162,7 +162,7 @@ You can also make your own gtk theme if you have time!
 
 
 
-For QT5 apps, the plasma style is themed by `kvantum` and its color scheme is handled by `qt5ct`.   
+For QT5/6 apps, the plasma style is themed by `kvantum` and its color scheme is handled by `qt5ct`.   
 
 Copy the corresponding config file from any existing theme and modify the color codes in file `~/.config/Kvantum/My-Fav-Theme/My-Fav-Theme.kvconfig` and use vector tool like inkscape to alter color in `~/.config/Kvantum/My-Fav-Theme/My-Fav-Theme.svg`.   
 
