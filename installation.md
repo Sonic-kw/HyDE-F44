@@ -66,6 +66,17 @@ KWin greeter. Without this delay, Hyprland's aquamarine backend fails with
 The wrapper is placed in `/usr/local/share/wayland-sessions/hyprland.desktop` so it
 survives hyprland package updates (overrides `/usr/share/wayland-sessions/`).
 
+### 3. Screen Sharing (uwsm + hyprlang)
+
+`uwsm` (Universal Wayland Session Manager) and `hyprlang` are installed automatically.
+uwsm launches Hyprland as a proper systemd-managed session, enabling screen sharing in
+apps like Vesktop/Discord. `hyprlang` is a required shared library for
+`xdg-desktop-portal-hyprland` that is not automatically pulled as a dependency on Fedora 44.
+
+**After install, select "Hyprland (uwsm-managed)" at the SDDM login screen** — not the
+plain "Hyprland" session. The session file is provided by the `uwsm` package at
+`/usr/share/wayland-sessions/hyprland-uwsm.desktop`.
+
 ---
 
 ## NVIDIA GPUs
@@ -116,7 +127,7 @@ sudo bash cleanup.sh
 ## After Install
 
 1. **Reboot** — required for SDDM, Hyprland session, and NVIDIA modules (if applicable)
-2. At the SDDM login screen, select the **Hyprland** session from the session menu
+2. At the SDDM login screen, select the **Hyprland (uwsm-managed)** session from the session menu
 3. Log in — Hyprland will start with the default theme (Catppuccin-Mocha)
 
 To change theme: `Super + Shift + T`  

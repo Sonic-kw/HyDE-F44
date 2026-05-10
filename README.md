@@ -26,7 +26,7 @@ cd HyDE-Fedora44/install
 
 > **Note**
 >
-> `install_all.sh` also sets up the SDDM Wayland greeter fix and the Hyprland DRM seat handover delay automatically. 
+> `install_all.sh` also sets up the SDDM Wayland greeter fix, the Hyprland DRM seat handover delay, and uwsm for systemd-managed sessions (required for screen sharing) automatically.
 
 Please reboot after the install script completes for the first time.
 For more details, please refer [installation.md](installation.md)
@@ -164,6 +164,8 @@ qt6-wayland | for QT wayland XDP
 | hypr | |
 | :-- | --- |
 hyprland | main window manager (COPR: solopasha/hyprland)
+uwsm | universal wayland session manager — runs Hyprland as a systemd-managed session
+hyprlang | hypr config language library — required by xdg-desktop-portal-hyprland
 dunst | graphical notification daemon
 rofi-wayland | app launcher
 waybar | status bar

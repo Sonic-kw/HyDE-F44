@@ -17,7 +17,7 @@ if nvidia_detected; then
     sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
    
 fi
-sudo dnf install -y hyprland cliphist xdg-desktop-portal-hyprland swww grimblast
+sudo dnf install -y hyprland cliphist xdg-desktop-portal-hyprland swww grimblast hyprlang uwsm
 
 # --- Fedora 44 fix: DRM seat handover delay ---
 # After SDDM's KWin Wayland greeter releases the DRM seat, logind needs a moment
@@ -40,3 +40,4 @@ sudo cp /usr/share/wayland-sessions/hyprland.desktop /usr/local/share/wayland-se
 sudo sed -i 's|^Exec=.*|Exec=/usr/local/bin/hyprland-wait|' /usr/local/share/wayland-sessions/hyprland.desktop
 
 echo "[hyprland-wait] DRM seat fix installed."
+echo "[uwsm] After reboot, select 'Hyprland (uwsm-managed)' at the SDDM login screen for screen sharing support."
