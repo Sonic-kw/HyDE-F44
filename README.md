@@ -18,7 +18,7 @@
 After minimal (or any other) Fedora 44 install, clone and execute -
 ```shell
 sudo dnf install git
-git clone https://github.com/YOUR_USERNAME/HyDE-Fedora44.git
+git clone https://github.com/Sonic-kw/HyDE-Fedora44.git
 cd HyDE-Fedora44/install
 ./install_all.sh
 ```
