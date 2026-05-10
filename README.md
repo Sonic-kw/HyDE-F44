@@ -4,6 +4,7 @@
 >
 > Fork of [Senshi111/fedora-hyprland-hyprdots](https://github.com/Senshi111/fedora-hyprland-hyprdots) — updated for **Fedora 44** and **Hyprland 0.54+**, with all configs and themes bundled in one repo.
 > Original themes by [prasanthrangan](https://github.com/prasanthrangan/hyprdots).
+> All fixes and changes were coauthored by Claude Sonnet 4.6 <noreply@anthropic.com>
 
 ## My Fedora 44 Hyprland Config
 
@@ -25,7 +26,7 @@ cd HyDE-Fedora44/install
 
 > **Note**
 >
-> `install_all.sh` also sets up the SDDM Wayland greeter fix and the Hyprland DRM seat handover delay automatically.
+> `install_all.sh` also sets up the SDDM Wayland greeter fix and the Hyprland DRM seat handover delay automatically. 
 
 Please reboot after the install script completes for the first time.
 For more details, please refer [installation.md](installation.md)
