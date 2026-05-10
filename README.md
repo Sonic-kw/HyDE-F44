@@ -174,7 +174,7 @@ grim | screenshot tool
 slurp | selects region for screenshot/screenshare
 swappy | screenshot editor
 cliphist | clipboard manager
-swaylock-effects | lock screen (COPR: trs-sod/swaylock-effects)
+hyprlock | lock screen (COPR: solopasha/hyprland)
 
 | dependencies | |
 | :-- | --- |

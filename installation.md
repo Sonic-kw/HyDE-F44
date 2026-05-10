@@ -29,12 +29,11 @@ The script runs the following steps in order:
 | :-- | :-- | :-- |
 | 1 | `install_dependencies.sh` | Core libs, audio, Bluetooth, fonts, dev tools |
 | 2 | `install_hyprland.sh` | Hyprland via COPR + Fedora 44 DRM seat fix |
-| 3 | `install_swaylock-effects.sh` | Lock screen via COPR |
-| 4 | `install_nwg-look.sh` | GTK theming tool via COPR |
-| 5 | `install_pokemon-colorscripts.sh` | Terminal Pokémon sprites |
-| 6 | `install_apps.sh` | Status bar, launcher, file manager, VS Code, Chrome |
-| 7 | `install_themes.sh` | HyDE theme configs, scripts, and user dotfiles |
-| 8 | `cleanup.sh` | Removes temporary build files |
+| 3 | `install_nwg-look.sh` | GTK theming tool via COPR |
+| 4 | `install_pokemon-colorscripts.sh` | Terminal Pokémon sprites |
+| 5 | `install_apps.sh` | Status bar, launcher, file manager, VS Code, Chrome |
+| 6 | `install_themes.sh` | HyDE theme configs, scripts, and user dotfiles |
+| 7 | `cleanup.sh` | Removes temporary build files |
 
 ---
 
@@ -44,8 +43,7 @@ The following COPR repositories are enabled automatically:
 
 | COPR | Provides |
 | :-- | :-- |
-| `solopasha/hyprland` | hyprland, xdg-desktop-portal-hyprland, grimblast, swww |
-| `trs-sod/swaylock-effects` | swaylock-effects |
+| `solopasha/hyprland` | hyprland, hyprlock, xdg-desktop-portal-hyprland, grimblast, swww |
 | `tofik/nwg-shell` | nwg-look |
 
 ---
@@ -94,22 +92,19 @@ cd HyDE-F44/install
 # 1. Core dependencies
 sudo bash install_dependencies.sh
 
-# 2. Hyprland + DRM seat fix
+# 2. Hyprland + DRM seat fix (includes hyprlock)
 sudo bash install_hyprland.sh
 
-# 3. Lock screen
-sudo bash install_swaylock-effects.sh
-
-# 4. GTK theming
+# 3. GTK theming
 sudo bash install_nwg-look.sh
 
-# 5. Pokemon colorscripts (terminal fun)
+# 4. Pokemon colorscripts (terminal fun)
 sudo bash install_pokemon-colorscripts.sh
 
-# 6. Applications (waybar, rofi, dolphin, VS Code, Chrome)
+# 5. Applications (waybar, rofi, dolphin, VS Code, Chrome)
 sudo bash install_apps.sh
 
-# 7. HyDE themes and dotfiles
+# 6. HyDE themes and dotfiles
 sudo bash install_themes.sh
 
 # 8. Cleanup

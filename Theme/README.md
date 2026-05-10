@@ -131,7 +131,7 @@ dunst | graphical notification daemon
 rofi-lbonn-wayland-git | app launcher
 waybar-hyprland-git | status bar
 swww | wallpaper app
-swaylock-effects-git | lockscreen
+hyprlock | lockscreen
 swayidle | idle management daemon
 wlogout | logout screen
 grim | screenshot tool
