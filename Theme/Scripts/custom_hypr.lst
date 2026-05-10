@@ -38,6 +38,8 @@ cliphist                                               # clipboard manager
 
 # --------------------------------------------------- // Dependencies
 polkit-kde                                             # authentication agent
+kf6-kwallet                                            # KWallet daemon (required by ksshaskpass/QtKeychain)
+ksshaskpass                                            # SSH askpass helper for KWallet integration
 xdg-desktop-portal-hyprland                            # xdg desktop portal for hyprland
 python3-pyamdgpuinfo                                   # for amd gpu info
 parallel                                               # for parallel processing

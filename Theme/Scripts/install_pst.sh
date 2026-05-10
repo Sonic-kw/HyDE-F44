@@ -65,6 +65,19 @@ else
     echo -e "\033[0;33m[WARNING]\033[0m sddm is not installed..."
 fi
 
+# Tela-circle icon theme (required by all HyDE themes: grey, purple, green, etc.)
+tela_marker="${HOME}/.local/share/icons/Tela-circle/index.theme"
+if [ ! -f "${tela_marker}" ]; then
+    echo -e "\033[0;32m[ICONS]\033[0m installing Tela-circle icon theme..."
+    tela_tmp=$(mktemp -d)
+    git clone --depth=1 https://github.com/vinceliuice/Tela-circle-icon-theme.git "${tela_tmp}"
+    bash "${tela_tmp}/install.sh" -a
+    rm -rf "${tela_tmp}"
+    echo -e "\033[0;32m[ICONS]\033[0m Tela-circle icon theme installed."
+else
+    echo -e "\033[0;33m[SKIP]\033[0m Tela-circle icon theme already installed..."
+fi
+
 # dolphin
 if pkg_installed dolphin && pkg_installed xdg-utils; then
 

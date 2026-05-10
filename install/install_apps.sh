@@ -21,6 +21,8 @@ install_packages \
     grim \
     slurp \
     polkit-kde \
+    kf6-kwallet \
+    ksshaskpass \
     xdg-desktop-portal-gtk \
     ImageMagick \
     pavucontrol \
