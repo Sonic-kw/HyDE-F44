@@ -1,21 +1,11 @@
-#NO LONGER MAINTAINED
+# --// HyDE for Fedora 44 //--
 
-
-# All the thems i took from prasanthrangan
 > **Note**
 >
-> thanks to prasanthrangan's work, I only took his themes and modified the scripts so that they could work in fedora
->[prasanthrangan github page](https://github.com/prasanthrangan/hyprdots) 
+> Fork of [Senshi111/fedora-hyprland-hyprdots](https://github.com/Senshi111/fedora-hyprland-hyprdots) — updated for **Fedora 44** and **Hyprland 0.54+**, with all configs and themes bundled in one repo.
+> Original themes by [prasanthrangan](https://github.com/prasanthrangan/hyprdots).
 
-
-
-
-# --// Hyprdots //--
-
-### location of dots file is [here](https://github.com/Senshi111/hyprland-hyprdots-files.git) 
-    
-## My Fedora 40 Hyprland Config
-https://user-images.githubusercontent.com/106020512/235429801-e8b8dae2-c1ad-4e23-9aa2-b1edb6cabe99.mp4
+## My Fedora 44 Hyprland Config
 
 | <!-- --> | <!-- --> |
 | --- | --- |
@@ -25,34 +15,24 @@ https://user-images.githubusercontent.com/106020512/235429801-e8b8dae2-c1ad-4e23
 
 ### Installation
 
-   
-
-After minimal (or any other) Fedora install (with grub), clone and execute -
+After minimal (or any other) Fedora 44 install, clone and execute -
 ```shell
 sudo dnf install git
-git clone https://github.com/Senshi111/fedora-hyprland-hyprdots.git
-cd ~/fedora-hyprland-hyprdots/build-hyprland-and-apps
+git clone https://github.com/YOUR_USERNAME/HyDE-Fedora44.git
+cd HyDE-Fedora44/install
 ./install_all.sh
 ```
 
-> **Warning**
+> **Note**
 >
-> If you dont have pyamdgpuinfo installed
-```shell
-sudo dnf install python3-pip
-pip install pyamdgpuinfo
-```
-> if you got an  #error: externally-managed-environment
-```shell
-sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.old
-```
+> `install_all.sh` also sets up the SDDM Wayland greeter fix and the Hyprland DRM seat handover delay automatically.
 
-Please reboot after the install script completes and takes you to sddm login screen (or black screen) for the first time.   
-For more details, please refer [installation.md](https://github.com/prasanthrangan/hyprdots/blob/main/installation.md)
+Please reboot after the install script completes for the first time.
+For more details, please refer [installation.md](installation.md)
 
 
 ### Theming
-To add your own custom theme, please refer [theming.md](https://github.com/prasanthrangan/hyprdots/blob/main/theming.md)
+To add your own custom theme, please refer [theming.md](theming.md)
 - Available themes
     - [x] Catppuccin-Mocha
     - [x] Catppuccin-Latte
@@ -62,9 +42,9 @@ To add your own custom theme, please refer [theming.md](https://github.com/prasa
     - [x] Material-Sakura
     - [x] Graphite-Mono
     - [x] Cyberpunk-Edge
-    - [ ] Nordic-Blue (maybe later)
-
-- Contributors themes
+    - [x] Nordic-Blue
+    - [x] Edge-Runner
+    - [x] Synth-Wave
     - [x] Frosted-Glass by T-Crypt
     - [x] Gruvbox-Retro by T-Crypt
 
@@ -167,64 +147,70 @@ pipewire-audio | for audio
 pipewire-jack | for audio
 pipewire-pulse | for audio
 wireplumber | audio and video server
-network-manager | network manager
-network-manager-gnome | nm tray
+NetworkManager | network manager
+network-manager-applet | nm tray
 bluez | for bluetooth
+bluez-tools | bluetooth cli utilities
 blueman | bt tray
 brightnessctl | brightness control for laptop
 
 | login | |
 | :-- | --- |
-sddm-git | display manager for login
+sddm | display manager for login
 qt5-wayland | for QT wayland XDP
 qt6-wayland | for QT wayland XDP
 
 | hypr | |
 | :-- | --- |
-hyprland-git | main window manager 
+hyprland | main window manager (COPR: solopasha/hyprland)
 dunst | graphical notification daemon
-rofi-lbonn-wayland | app launcher
+rofi-wayland | app launcher
 waybar | status bar
-swww | wallpaper app
+swww | wallpaper app (COPR: alebastr/sway-extras)
 swayidle | idle management daemon
 wlogout | logout screen
 grim | screenshot tool
 slurp | selects region for screenshot/screenshare
 swappy | screenshot editor
 cliphist | clipboard manager
+swaylock-effects | lock screen (COPR: trs-sod/swaylock-effects)
 
 | dependencies | |
 | :-- | --- |
-polkit-kde-agent | authentication agent
-xdg-desktop-portal-hyprland-git | XDG Desktop Portal
+polkit-kde | authentication agent
+xdg-desktop-portal-hyprland | XDG Desktop Portal
 xdg-desktop-portal-gtk | XDG Desktop Portal file picker
-imagemagick | for kitty/neofetch image processing
-qt5-imageformats | for dolphin thumbnails
+ImageMagick | for image processing
+qt5-qtimageformats | for dolphin thumbnails
 pavucontrol | audio settings gui
 pamixer | for waybar audio
+parallel | for parallel processing
+jq | for json processing
+libnotify | for notifications
 
 | theming | |
 | :-- | --- |
-nwg-look | theming GTK apps
+nwg-look | theming GTK apps (COPR: tofik/nwg-shell)
 kvantum | theming QT apps
 qt5ct | theming QT5 apps
+qt6ct | theming QT6 apps
 
 | applications | |
 | :-- | --- |
 firefox | browser
 kitty | terminal
-neofetch | fetch tool
+fastfetch | fetch tool
 dolphin | kde file manager
-visual-studio-code | gui code editor
+code | gui code editor (Microsoft repo)
 vim | text editor
 ark | kde file archiver
 
 | shell | |
 | :-- | --- |
 zsh | main shell
-exa | colorful file lister
-oh-my-zsh-git | for zsh plugins
-pokemon-colorscripts-git | display pokemon sprites
+lsd | colorful file lister
+oh-my-zsh | for zsh plugins (install via script)
+pokemon-colorscripts | display pokemon sprites (install via script)
 
 </details>
 
@@ -238,15 +224,15 @@ pokemon-colorscripts-git | display pokemon sprites
 | `Super` + `Del` | quit hyprland session
 | `Super` + `W` | toggle window on focus to float
 | `Alt` + `Enter` | toggle window on focus to fullscreen
-| `Alt` + `J` | toggle layout
+| `Super` + `J` | toggle layout
 | `Super` + `G` | toggle window group
 | `Super` + `T` | launch kitty terminal
 | `Super` + `E` | launch dolphin file explorer
-| `Super` + `V` | launch Vs code
-| `Super` + `F` | launch firefox
+| `Super` + `C` | launch VS Code
+| `Super` + `B` | launch browser
 | `Super` + `A` | launch desktop applications (rofi)
 | `Super` + `Tab` | switch open applications (rofi)
-| `Super` + `R` | browse system files (rofi)
+| `Super` + `Shift` + `E` | browse system files (rofi)
 | `F10` | mute audio output (toggle)
 | `F11` | decrease volume (hold)
 | `F12` | increase volume (hold)
@@ -254,14 +240,14 @@ pokemon-colorscripts-git | display pokemon sprites
 | `Super` + `Backspace` | logout menu
 | `Super` + `P` | screenshot snip
 | `Super` + `Alt` + `P` | print current screen
-| `Super` + `RightClick` | resize the window 
+| `Super` + `RightClick` | resize the window
 | `Super` + `LeftClick` | change the window position
 | `Super` + `MouseScroll` | cycle through workspaces
 | `Super` + `Shift` + `←` `→` `↑` `↓` | resize windows (hold)
 | `Super` + `[0-9]` | switch to workspace [0-9]
 | `Super` + `Shift` + `[0-9]` | move active window to workspace [0-9]
 | `Super` + `Alt` + `S` | move window to special workspace
-| `Super` + `S` | toogle to special workspace
+| `Super` + `S` | toggle special workspace
 | `Super` + `Alt` + `→` | next wallpaper
 | `Super` + `Alt` + `←` | previous wallpaper
 | `Super` + `Alt` + `↑` | next waybar mode
@@ -269,16 +255,6 @@ pokemon-colorscripts-git | display pokemon sprites
 | `Super` + `Shift` + `T` | theme select menu
 | `Super` + `Shift` + `A` | rofi style select menu
 | `Super` + `Alt` + `G` | disable hypr effects for gamemode
-
-</details>
-
-
-<details>
-<summary><h4>Playlist</h4></summary>
-
-| youtube |
-| --- |
-| [![IMAGE ALT TEXT](https://raw.githubusercontent.com/prasanthrangan/hyprdots/main/Source/assets/yt_playlist.png)](https://www.youtube.com/watch?v=_nyStxAI75s&list=PLt8rU_ebLsc5yEHUVsAQTqokIBMtx3RFY) |
 
 </details>
 
@@ -297,11 +273,12 @@ pokemon-colorscripts-git | display pokemon sprites
 - [x] Update Volume control script/notification (ver2)
 - [x] Rofi config change script + add new configs
 - [x] Make wlogout configs dynamic and sync with theme
+- [x] Fix SDDM random crash (Wayland greeter mode)
+- [x] Fix Hyprland session crash on SDDM Wayland (DRM seat handover delay)
 - [ ] Wallpaper select script with rofi menu
 - [ ] Fix rofi configs/scripts for dynamic scaling
 - [ ] Sync PC/keyboard hw rgb with current theme (themeswitch.sh + openrgb)
 - [ ] Add battery and brightness indicator/notification for laptop users
-- [ ] Replace waybar with Eww? (maybe later)
 
 </details>
 
@@ -309,9 +286,14 @@ pokemon-colorscripts-git | display pokemon sprites
 <details>
 <summary><h4>Known Issues</h4></summary>
 
-- [ ] Random lockscreen crash, refer https://github.com/swaywm/sway/issues/7046
 - [ ] Waybar launching rofi breaks mouse input (added `sleep 0.1` as workaround), refer https://github.com/Alexays/Waybar/issues/1850
 - [ ] Flatpak QT apps does not follow system theme
 
 </details>
 
+
+> **Warning**
+>
+> This configuration is provided as-is for personal use. Use at your own risk.
+> Always back up your existing configs before running any install scripts.
+> The author takes no responsibility for any damage, data loss, or system instability caused by using this project.
