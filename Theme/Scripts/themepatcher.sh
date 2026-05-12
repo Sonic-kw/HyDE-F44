@@ -167,10 +167,15 @@ while IFS= read -r walls; do
     cp -f "${walls}" "${Fav_Theme_Walls}"
 done <<< "${wallpapers}"
 
-# restore configs with theme override
-echo -en "${restore_list}" > "${Theme_Dir}/restore_cfg.lst"
-print_prompt -g "\n[exec] " "restore_cfg.sh \"${Theme_Dir}/restore_cfg.lst\" \"${Theme_Dir}/Configs\" \"${Fav_Theme}\"\n"
-"${scrDir}/restore_cfg.sh" "${Theme_Dir}/restore_cfg.lst" "${Theme_Dir}/Configs" "${Fav_Theme}" &> /dev/null
+# restore configs with theme override.
+# Use a per-theme scratch file under $HOME so the 12 parallel themepatcher
+# invocations don't race each other writing the same ${Theme_Dir}/restore_cfg.lst
+# (which silently dropped most themes' restores in earlier versions).
+restoreLst="${HOME}/.cache/hyde/themepatcher-${Fav_Theme// /_}.lst"
+mkdir -p "$(dirname "${restoreLst}")"
+echo -en "${restore_list}" > "${restoreLst}"
+print_prompt -g "\n[exec] " "restore_cfg.sh \"${restoreLst}\" \"${Theme_Dir}/Configs\" \"${Fav_Theme}\"\n"
+"${scrDir}/restore_cfg.sh" "${restoreLst}" "${Theme_Dir}/Configs" "${Fav_Theme}"
 [ "${3}" == "--skipcaching" ] || "$HOME/.local/share/bin/swwwallcache.sh" -t "${Fav_Theme}"
 
 exit 0
