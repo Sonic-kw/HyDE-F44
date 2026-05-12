@@ -22,25 +22,41 @@ if pkg_installed sddm; then
     if [ ! -f /etc/sddm.conf.d/kde_settings.t2.bkp ]; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m configuring sddm..."
 
-        # Non-interactive default: honor $use_default (-d flag), $SDDM_THEME env,
-        # or fall back to Corners when stdin isn't a TTY (headless / unattended).
+        # Theme selection. Defaults to the stock 'breeze' theme because both
+        # Candy and Corners QML target the old Qt5 sddm-greeter and crash the
+        # Qt6 sddm-greeter-qt6 shipped on F44 (greeter exits 4 in a loop).
+        # Override with $SDDM_THEME=Candy|Corners|breeze, or pick interactively.
         if [ -n "${use_default:-}" ] || [ ! -t 0 ]; then
-            sddmopt="${SDDM_THEME:-2}"
+            sddmopt="${SDDM_THEME:-3}"
             echo " :: Using ${sddmopt} (non-interactive)"
         else
-            echo -e "Select sddm theme:\n[1] Candy\n[2] Corners"
+            echo -e "Select sddm theme:\n[1] Candy (Qt5, may crash on F44)\n[2] Corners (Qt5, may crash on F44)\n[3] breeze (stock, Qt6-safe) [default]"
             read -p " :: Enter option number : " sddmopt
         fi
 
         case $sddmopt in
-        1|Candy)   sddmtheme="Candy" ;;
-        *)         sddmtheme="Corners" ;;
+        1|Candy)    sddmtheme="Candy" ;;
+        2|Corners)  sddmtheme="Corners" ;;
+        *)          sddmtheme="breeze" ;;
         esac
 
-        sudo tar -xzf ${cloneDir}/Source/arcs/Sddm_${sddmtheme}.tar.gz -C /usr/share/sddm/themes/
         sudo touch /etc/sddm.conf.d/kde_settings.conf
         sudo cp /etc/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.t2.bkp
-        sudo cp /usr/share/sddm/themes/${sddmtheme}/kde_settings.conf /etc/sddm.conf.d/
+
+        if [ "$sddmtheme" = "breeze" ]; then
+            # breeze ships with the sddm package — nothing to extract.
+            sudo tee /etc/sddm.conf.d/kde_settings.conf > /dev/null <<'KSEOF'
+[Theme]
+Current=breeze
+
+[General]
+HaltCommand=/usr/bin/systemctl poweroff
+RebootCommand=/usr/bin/systemctl reboot
+KSEOF
+        else
+            sudo tar -xzf "${cloneDir}/Source/arcs/Sddm_${sddmtheme}.tar.gz" -C /usr/share/sddm/themes/
+            sudo cp "/usr/share/sddm/themes/${sddmtheme}/kde_settings.conf" /etc/sddm.conf.d/
+        fi
     else
         echo -e "\033[0;33m[SKIP]\033[0m sddm is already configured..."
     fi
@@ -50,26 +66,12 @@ if pkg_installed sddm; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m avatar set for ${USER}..."
     fi
 
-    # Fedora 44 fix: run SDDM greeter in Wayland mode to prevent random crashes.
-    # By default SDDM uses X11 greeter which fails on Wayland-native setups.
-    # This drop-in makes SDDM use kwin_wayland as the greeter compositor.
-    if [ ! -f /etc/sddm.conf.d/fedora44-wayland.conf ]; then
-        echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m applying Fedora 44 Wayland greeter fix..."
-        # NOTE: --inputmethod takes a binary name / path. 'plasma-keyboard'
-        # is not a real F44 binary; use qtvirtualkeyboard (or omit entirely).
-        sudo tee /etc/sddm.conf.d/fedora44-wayland.conf > /dev/null << 'SDDMEOF'
-[General]
-DisplayServer=wayland
-GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
-InputMethod=
-
-[Wayland]
-CompositorCommand=kwin_wayland --no-global-shortcuts --no-lockscreen --inputmethod qtvirtualkeyboard --locale1
-SDDMEOF
-        echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m Wayland greeter fix applied."
-    else
-        echo -e "\033[0;33m[SKIP]\033[0m Fedora 44 Wayland fix already in place..."
-    fi
+    # The previous /etc/sddm.conf.d/fedora44-wayland.conf drop-in (forcing the
+    # kwin_wayland-hosted greeter) is intentionally NOT written here. On F44 it
+    # crashed sddm-greeter-qt6 in a tight loop (exit 4) even with virtio-gpu
+    # and virgl. Stock X11 greeter behavior is reliable; revisit if upstream
+    # SDDM ships a stable wayland greeter mode.
+    sudo rm -f /etc/sddm.conf.d/fedora44-wayland.conf
 
 else
     echo -e "\033[0;33m[WARNING]\033[0m sddm is not installed..."
