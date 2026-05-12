@@ -142,7 +142,13 @@ EOF
     while IFS='"' read -r null1 themeName null2 themeRepo
     do
         themeNameQ+=("${themeName//\"/}")
-        themeRepoQ+=("${themeRepo//\"/}")
+        # Expand ${cloneDir} (and any other shell vars) so themepatcher.lst
+        # entries can point at the local repo via `${cloneDir}` instead of a
+        # GitHub URL. Without this eval, the literal string `${cloneDir}` was
+        # fed to themepatcher.sh as a (non-existent) directory and the script
+        # silently fell back to cloning upstream prasanthrangan/hyde-themes,
+        # ignoring our patched themes.
+        themeRepoQ+=("$(eval echo "${themeRepo//\"/}")")
         themePath="${confDir}/hyde/themes/${themeName}"
         [ -d "${themePath}" ] || mkdir -p "${themePath}"
         [ -f "${themePath}/.sort" ] || echo "${#themeNameQ[@]}" > "${themePath}/.sort"
