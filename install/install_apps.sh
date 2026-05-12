@@ -13,6 +13,9 @@ install_packages \
     network-manager-applet \
     brightnessctl \
     qt6-qtwayland \
+    qt6-qtsvg \
+    qt6-qtdeclarative \
+    qt6-qt5compat \
     dunst \
     rofi-wayland \
     swayidle \
