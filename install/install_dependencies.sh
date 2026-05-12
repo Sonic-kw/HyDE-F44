@@ -42,8 +42,13 @@ sudo dnf install -y \
 sudo dnf install -y \
             "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
-# Google Chrome (skip re-add if already installed)
+# Google Chrome (skip re-add if already installed).
+# Import the signing key BEFORE the dnf transaction. The google-chrome-stable
+# RPM's post-install scriptlet calls `rpm --import` itself, but it runs while
+# the parent dnf transaction already holds /usr/lib/sysimage/rpm/.rpm.lock,
+# producing "Resource temporarily unavailable" and a failed key import.
 if ! rpm -q --quiet google-chrome-stable; then
+    sudo rpm --import https://dl.google.com/linux/linux_signing_key.pub
     sudo dnf install -y fedora-workstation-repositories
     sudo dnf config-manager setopt google-chrome.enabled=1 2>/dev/null \
         || sudo dnf config-manager --set-enabled google-chrome
