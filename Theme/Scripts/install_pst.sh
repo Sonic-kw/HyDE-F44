@@ -26,24 +26,21 @@ if pkg_installed sddm; then
     if [ ! -f /etc/sddm.conf.d/kde_settings.t2.bkp ] || [ -n "${SDDM_THEME:-}" ]; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m configuring sddm..."
 
-        # Theme selection. The historical Candy / Corners tarballs in
-        # Source/arcs/ are Qt5-era QML and crash sddm-greeter-qt6 (Qt6) on
-        # F44. We now pull Qt6-native community forks at install time instead
-        # of shipping the broken tarballs:
-        #   Candy   → inviter42/sddm-anime-tactical (Sugar Candy aesthetic, Qt6)
-        #   Corners → Silzinc/sddm-theme-corners    (Corners fork, Qt6-migrated)
-        # breeze remains the safe default. Override with $SDDM_THEME=Candy|Corners|breeze.
+        # Theme selection. The historical Corners tarball in Source/arcs/ was
+        # Qt5-era QML and crashed sddm-greeter-qt6 (Qt6) on F44. We now pull
+        # a Qt6-native fork at install time:
+        #   Corners → Silzinc/sddm-theme-corners (Qt6-migrated)
+        # breeze remains the safe default. Override with $SDDM_THEME=Corners|breeze.
         if [ -n "${use_default:-}" ] || [ ! -t 0 ]; then
-            sddmopt="${SDDM_THEME:-3}"
+            sddmopt="${SDDM_THEME:-2}"
             echo " :: Using ${sddmopt} (non-interactive)"
         else
-            echo -e "Select sddm theme:\n[1] Candy (Qt6, anime-tactical fork)\n[2] Corners (Qt6, Silzinc fork)\n[3] breeze (stock) [default]"
+            echo -e "Select sddm theme:\n[1] Corners (Qt6, Silzinc fork)\n[2] breeze (stock) [default]"
             read -p " :: Enter option number : " sddmopt
         fi
 
         case $sddmopt in
-        1|Candy)    sddmtheme="Candy" ;;
-        2|Corners)  sddmtheme="Corners" ;;
+        1|Corners)  sddmtheme="Corners" ;;
         *)          sddmtheme="breeze" ;;
         esac
 
@@ -71,27 +68,6 @@ KSEOF
             sudo tee /etc/sddm.conf.d/kde_settings.conf > /dev/null <<'KSEOF'
 [Theme]
 Current=Corners
-
-[General]
-HaltCommand=/usr/bin/systemctl poweroff
-RebootCommand=/usr/bin/systemctl reboot
-KSEOF
-            ;;
-        Candy)
-            tmpdir=$(mktemp -d)
-            git clone --depth=1 https://github.com/inviter42/sddm-anime-tactical.git "${tmpdir}"
-            sudo rm -rf /usr/share/sddm/themes/Candy
-            sudo mkdir -p /usr/share/sddm/themes/Candy
-            sudo cp -r "${tmpdir}/." /usr/share/sddm/themes/Candy/
-            sudo rm -rf /usr/share/sddm/themes/Candy/.git \
-                        /usr/share/sddm/themes/Candy/Previews \
-                        /usr/share/sddm/themes/Candy/CHANGELOG.md \
-                        /usr/share/sddm/themes/Candy/COPYING \
-                        /usr/share/sddm/themes/Candy/AUTHORS
-            rm -rf "${tmpdir}"
-            sudo tee /etc/sddm.conf.d/kde_settings.conf > /dev/null <<'KSEOF'
-[Theme]
-Current=Candy
 
 [General]
 HaltCommand=/usr/bin/systemctl poweroff
