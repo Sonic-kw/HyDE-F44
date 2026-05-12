@@ -59,7 +59,7 @@ sudo dnf install -y hyprland cliphist xdg-desktop-portal-hyprland swww grimblast
 sudo tee /usr/local/bin/hyprland-wait > /dev/null << 'EOF'
 #!/bin/bash
 sleep 2
-exec /usr/bin/start-hyprland "$@"
+exec /usr/bin/Hyprland "$@"
 EOF
 sudo chmod +x /usr/local/bin/hyprland-wait
 
