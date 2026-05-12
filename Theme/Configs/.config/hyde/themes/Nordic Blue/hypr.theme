@@ -45,3 +45,4 @@ decoration {
 }
 
 blurls = waybar
+layerrule = blur on, match:namespace waybar
