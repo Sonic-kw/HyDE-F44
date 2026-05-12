@@ -50,7 +50,7 @@ if sudo dnf install -y --assumeno aquamarine 2>&1 | grep -q "libdisplay-info.so.
     rebuild_aquamarine_from_srpm
 fi
 
-sudo dnf install -y hyprland cliphist xdg-desktop-portal-hyprland swww grimblast hyprlang uwsm
+sudo dnf install -y hyprland cliphist xdg-desktop-portal-hyprland swww grimblast hyprlang hyprlock uwsm
 
 # --- Fedora 44 fix: DRM seat handover delay ---
 # After SDDM's KWin Wayland greeter releases the DRM seat, logind needs a moment
