@@ -14,8 +14,11 @@ fi
 if chk_list "myShell" "${shlList[@]}"; then
     echo -e "\033[0;32m[SHELL]\033[0m detected // ${myShell}"
 else
-    echo "Error: user shell not found"
-    exit 1
+    # Non-fatal: bash works fine as the default; the user can `chsh` later.
+    # Aborting here used to silently break the SDDM service-enable step in
+    # the parent install.sh (set -e propagates through sourced global_fn.sh).
+    echo -e "\033[0;33m[SHELL]\033[0m WARNING: none of [${shlList[*]}] installed — skipping shell setup"
+    exit 0
 fi
 
 # add zsh plugins

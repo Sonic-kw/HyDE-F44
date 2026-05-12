@@ -38,7 +38,8 @@ install_packages \
     sddm \
     firefox \
     kde-cli-tools \
-    fastfetch
+    fastfetch \
+    zsh
 
 # Enable SDDM here so it autostarts on next boot even if the theme script
 # (which also enables it via system_ctl.lst) is skipped or fails.
