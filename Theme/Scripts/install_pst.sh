@@ -19,7 +19,11 @@ if pkg_installed sddm; then
         sudo mkdir -p /etc/sddm.conf.d
     fi
 
-    if [ ! -f /etc/sddm.conf.d/kde_settings.t2.bkp ]; then
+    # Re-run behavior: respect a one-time .t2.bkp marker only when the user
+    # hasn't explicitly passed $SDDM_THEME or selected a theme interactively.
+    # If $SDDM_THEME is set, always reconfigure so users can change their
+    # mind after the initial install instead of being silently SKIPped.
+    if [ ! -f /etc/sddm.conf.d/kde_settings.t2.bkp ] || [ -n "${SDDM_THEME:-}" ]; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m configuring sddm..."
 
         # Theme selection. The historical Candy / Corners tarballs in
