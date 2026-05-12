@@ -23,15 +23,15 @@ Wall_Update()
     $ScrDir/swwwallbash.sh "$x_wall" &
 
     if [ ! -f "${cacheDir}/${curTheme}/${cacheImg}" ] ; then
-        magick -strip "${x_wall}"[0] -thumbnail 500x500^ -gravity center -extent 500x500 "${cacheDir}/${curTheme}/${cacheImg}" &
+        magick "${x_wall}"[0] -strip -thumbnail 500x500^ -gravity center -extent 500x500 "${cacheDir}/${curTheme}/${cacheImg}" &
     fi
 
     if [ ! -f "${cacheDir}/${curTheme}/${cacheImg}.rofi" ] ; then
-        magick -strip -resize 2000 -gravity center -extent 2000 -quality 90 "$x_wall"[0] "${cacheDir}/${curTheme}/${cacheImg}.rofi" &
+        magick "$x_wall"[0] -strip -resize 2000 -gravity center -extent 2000 -quality 90 "${cacheDir}/${curTheme}/${cacheImg}.rofi" &
     fi
 
     if [ ! -f "${cacheDir}/${curTheme}/${cacheImg}.blur" ] ; then
-        magick -strip -scale 10% -blur 0x3 -resize 100% "$x_wall"[0] "${cacheDir}/${curTheme}/${cacheImg}.blur" &
+        magick "$x_wall"[0] -strip -scale 10% -blur 0x3 -resize 100% "${cacheDir}/${curTheme}/${cacheImg}.blur" &
     fi
 
     wait

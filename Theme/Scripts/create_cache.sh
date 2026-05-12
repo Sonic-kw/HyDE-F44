@@ -108,11 +108,11 @@ fn_magick () {
     fi
 
     if [ ! -f "${cacheDir}/${theme}/${wpBaseName}.rofi" ]; then
-        magick -strip -resize 2000 -gravity center -extent 2000 -quality 90 "${wpFullName}"[0] "${cacheDir}/${theme}/${wpBaseName}.rofi" &> /dev/null
+        magick "${wpFullName}"[0] -strip -resize 2000 -gravity center -extent 2000 -quality 90 "${cacheDir}/${theme}/${wpBaseName}.rofi" &> /dev/null
     fi
 
     if [ ! -f "${cacheDir}/${theme}/${wpBaseName}.blur" ]; then
-        magick -strip -scale 10% -blur 0x3 -resize 100% "${wpFullName}"[0] "${cacheDir}/${theme}/${wpBaseName}.blur" &> /dev/null
+        magick "${wpFullName}"[0] -strip -scale 10% -blur 0x3 -resize 100% "${cacheDir}/${theme}/${wpBaseName}.blur" &> /dev/null
     fi
 
     if [ ! -f "${cacheDir}/${theme}/${wpBaseName}.dcol" ] ; then
