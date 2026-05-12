@@ -63,9 +63,22 @@ exec /usr/bin/start-hyprland "$@"
 EOF
 sudo chmod +x /usr/local/bin/hyprland-wait
 
-sudo mkdir -p /usr/local/share/wayland-sessions
-sudo cp /usr/share/wayland-sessions/hyprland.desktop /usr/local/share/wayland-sessions/hyprland.desktop
-sudo sed -i 's|^Exec=.*|Exec=/usr/local/bin/hyprland-wait|' /usr/local/share/wayland-sessions/hyprland.desktop
+# Patch the system session file in place. Creating a duplicate in
+# /usr/local/share/wayland-sessions/ caused SDDM to show two identical
+# "Hyprland" entries in the greeter. Back up the original so dnf updates
+# can be reconciled later.
+session_file=/usr/share/wayland-sessions/hyprland.desktop
+if [ -f "$session_file" ]; then
+    if [ ! -f "${session_file}.orig" ]; then
+        sudo cp "$session_file" "${session_file}.orig"
+    fi
+    sudo sed -i 's|^Exec=.*|Exec=/usr/local/bin/hyprland-wait|' "$session_file"
+fi
+
+# Clean up any stale duplicate from earlier installer versions.
+if [ -f /usr/local/share/wayland-sessions/hyprland.desktop ]; then
+    sudo rm -f /usr/local/share/wayland-sessions/hyprland.desktop
+fi
 
 echo "[hyprland-wait] DRM seat fix installed."
-echo "[uwsm] After reboot, select 'Hyprland (uwsm-managed)' at the SDDM login screen for screen sharing support."
+echo "[uwsm] After reboot, the 'Hyprland (uwsm-managed)' session is also available for screen sharing support."

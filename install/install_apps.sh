@@ -1,11 +1,10 @@
 #!/bin/bash
+set -euo pipefail
 
 # Function to install packages
 install_packages() {
     sudo dnf install -y "$@"
 }
-
-# Add repositories and update the system here if needed
 
 # Install required packages
 install_packages \
@@ -40,3 +39,7 @@ install_packages \
     firefox \
     kde-cli-tools \
     fastfetch
+
+# Enable SDDM here so it autostarts on next boot even if the theme script
+# (which also enables it via system_ctl.lst) is skipped or fails.
+sudo systemctl enable sddm.service

@@ -1,13 +1,13 @@
 #!/bin/bash
+set -euo pipefail
 
 # Function to install packages
 install_packages() {
     sudo dnf install -y "$@"
 }
 
-# Add repositories and update the system here if needed
-
-# Install required packages
+# Install required packages.
+# 'iwl*' must be quoted — unquoted it expands against CWD before dnf sees it.
 install_packages \
     wl-clipboard \
     go \
@@ -16,7 +16,6 @@ install_packages \
     swappy \
     rust \
     cargo \
-    python-cairo \
     alsa-ucm \
     alsa-firmware \
     alsa-sof-firmware \
@@ -28,7 +27,7 @@ install_packages \
     blueman \
     python3-cairo \
     NetworkManager-wifi \
-    iwl* \
+    'iwl*' \
     lm_sensors \
     cava \
     polkit-qt6-1 \
@@ -36,29 +35,27 @@ install_packages \
     grimblast \
     pipx
 
-# Install dependencies for wlroots
 export PATH=$PATH:/usr/local/go/bin
 
-# Enable COPR repository for additional packages
-#sudo dnf copr enable -y alebastr/sway-extras
-
-# Install the additional package
-#sudo dnf install -y swww
-
+# RPM Fusion (idempotent — dnf re-runs are no-ops once installed)
 sudo dnf install -y \
-            https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+            "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 sudo dnf install -y \
-            https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+            "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
+# Google Chrome (skip re-add if already installed)
+if ! rpm -q --quiet google-chrome-stable; then
+    sudo dnf install -y fedora-workstation-repositories
+    sudo dnf config-manager setopt google-chrome.enabled=1 2>/dev/null \
+        || sudo dnf config-manager --set-enabled google-chrome
+    sudo dnf install -y google-chrome-stable
+fi
 
-# Install Google Chrome
-sudo dnf install -y fedora-workstation-repositories
-sudo dnf config-manager enable google-chrome
-sudo dnf install -y google-chrome-stable
+# Visual Studio Code (skip re-add if already installed)
+if ! rpm -q --quiet code; then
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    sudo dnf install -y code
+fi
 
-# Install Visual Studio Code
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf install -y code
-pipx install hyprshade
-
+pipx install --force hyprshade

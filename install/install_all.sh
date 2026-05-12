@@ -1,7 +1,13 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Set graphical.target FIRST so a partial install still boots to a DM if SDDM
+# is later enabled. Doing this last meant any earlier failure left the system
+# on multi-user.target → no greeter on boot.
+echo "[systemd] Setting default boot target to graphical.target..."
+sudo systemctl set-default graphical.target
 
 run_step() {
     local script="$1"
@@ -22,13 +28,8 @@ run_step install_apps.sh
 run_step install_themes.sh
 run_step cleanup.sh
 
-# Without graphical.target SDDM never starts on boot regardless of being enabled.
-echo ""
-echo "[systemd] Setting default boot target to graphical.target..."
-sudo systemctl set-default graphical.target
-
 echo ""
 echo "========================================="
 echo "Installation complete. Please reboot."
-echo "At the SDDM login screen select: Hyprland (uwsm-managed)"
+echo "At the SDDM login screen select 'Hyprland' (or 'Hyprland (uwsm-managed)' if uwsm session preferred)."
 echo "========================================="

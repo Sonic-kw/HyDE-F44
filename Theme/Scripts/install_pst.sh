@@ -21,12 +21,20 @@ if pkg_installed sddm; then
 
     if [ ! -f /etc/sddm.conf.d/kde_settings.t2.bkp ]; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m configuring sddm..."
-        echo -e "Select sddm theme:\n[1] Candy\n[2] Corners"
-        read -p " :: Enter option number : " sddmopt
+
+        # Non-interactive default: honor $use_default (-d flag), $SDDM_THEME env,
+        # or fall back to Corners when stdin isn't a TTY (headless / unattended).
+        if [ -n "${use_default:-}" ] || [ ! -t 0 ]; then
+            sddmopt="${SDDM_THEME:-2}"
+            echo " :: Using ${sddmopt} (non-interactive)"
+        else
+            echo -e "Select sddm theme:\n[1] Candy\n[2] Corners"
+            read -p " :: Enter option number : " sddmopt
+        fi
 
         case $sddmopt in
-        1) sddmtheme="Candy" ;;
-        *) sddmtheme="Corners" ;;
+        1|Candy)   sddmtheme="Candy" ;;
+        *)         sddmtheme="Corners" ;;
         esac
 
         sudo tar -xzf ${cloneDir}/Source/arcs/Sddm_${sddmtheme}.tar.gz -C /usr/share/sddm/themes/
@@ -47,6 +55,8 @@ if pkg_installed sddm; then
     # This drop-in makes SDDM use kwin_wayland as the greeter compositor.
     if [ ! -f /etc/sddm.conf.d/fedora44-wayland.conf ]; then
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m applying Fedora 44 Wayland greeter fix..."
+        # NOTE: --inputmethod takes a binary name / path. 'plasma-keyboard'
+        # is not a real F44 binary; use qtvirtualkeyboard (or omit entirely).
         sudo tee /etc/sddm.conf.d/fedora44-wayland.conf > /dev/null << 'SDDMEOF'
 [General]
 DisplayServer=wayland
@@ -54,7 +64,7 @@ GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 InputMethod=
 
 [Wayland]
-CompositorCommand=kwin_wayland --no-global-shortcuts --no-lockscreen --inputmethod plasma-keyboard --locale1
+CompositorCommand=kwin_wayland --no-global-shortcuts --no-lockscreen --inputmethod qtvirtualkeyboard --locale1
 SDDMEOF
         echo -e "\033[0;32m[DISPLAYMANAGER]\033[0m Wayland greeter fix applied."
     else

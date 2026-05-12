@@ -35,11 +35,11 @@ local distro=$(get_distro)
             return 1
         fi
     elif [ "$distro" == "fedora" ]; then
-        if rpm -qa | grep "$PkgIn" &>/dev/null; then
-        return 0
-    else
-        return 1
-    fi
+        if rpm -q --quiet "$PkgIn"; then
+            return 0
+        else
+            return 1
+        fi
     else
         echo "Unsupported distribution: $distro"
         return 1
