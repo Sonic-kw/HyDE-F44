@@ -32,7 +32,6 @@ install_packages \
     cava \
     polkit-qt6-1 \
     lsd \
-    grimblast \
     pipx
 
 export PATH=$PATH:/usr/local/go/bin
