@@ -144,7 +144,13 @@ check_tars() {
 check_tars Gtk --mandatory
 check_tars Icon
 check_tars Cursor
-print_prompt "" && [[ "${exit_flag}" = true ]] && exit 1
+# Upstream HyDE shipped one Gtk_/Icon_/Cursor_ tarball per theme repo branch,
+# so `find` would match a single archive and the gsVal/trVal comparison made
+# sense. The local repo carries every theme's archives at once, so the find
+# returns multiple files, trVal stays empty, and exit_flag would fire — that
+# would abort the patcher BEFORE the configs are deployed. Treat the archive
+# check as best-effort: warn but never exit. (Original line was: exit 1.)
+print_prompt "" && [[ "${exit_flag}" = true ]] && print_prompt -y "[warn] " "theme archive mismatch — continuing anyway" && exit_flag=false
 
 # extract arcs
 prefix=("Gtk" "Icon" "Cursor")
