@@ -7,7 +7,7 @@ local file    = "dolphin"
 local browser = "google-chrome"
 
 -- Window / session
-hl.bind(mainMod .. " + Q",              hl.dsp.exec_cmd(scrPath .. "/dontkillsteam.sh"))
+hl.bind(mainMod .. " + Q",              hl.dsp.window.close())
 hl.bind("ALT + F4",                     hl.dsp.exec_cmd(scrPath .. "/dontkillsteam.sh"))
 hl.bind(mainMod .. " + Delete",         hl.dsp.exit())
 hl.bind(mainMod .. " + W",              hl.dsp.window.float({ action = "toggle" }))
