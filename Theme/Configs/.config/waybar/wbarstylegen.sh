@@ -5,7 +5,7 @@
 waybar_dir=$(dirname "$(realpath "$0")")
 in_file="$waybar_dir/modules/style.css"
 out_file="$waybar_dir/style.css"
-src_file="$HOME/.config/hypr/themes/theme.conf"
+src_file="$HOME/.config/hypr/themes/theme.lua"
 export cur_theme=$(echo $(readlink "$src_file") | awk -F "/" '{print $NF}' | cut -d '.' -f 1)
 
 
@@ -45,7 +45,7 @@ envsubst < "$in_file" > "$out_file"
 
 # override rounded corners
 
-hypr_border=$(awk -F '=' '/ rounding / {print $2}' "$src_file" | sed 's/ //g')
+hypr_border=$(awk -F '=' '/rounding/ {print $2}' "$src_file" | sed 's/[, ]//g')
 if [ "$hypr_border" == "0" ] ; then
     sed -i "/border-radius: /c\    border-radius: 0px;" "$out_file"
 fi

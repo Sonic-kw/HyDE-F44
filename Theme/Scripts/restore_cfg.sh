@@ -77,7 +77,7 @@ cat "${CfgLst}" | while read lst; do
 done
 
 if [ -z "${ThemeOverride}" ]; then
-    if nvidia_detect && [ $(grep '^source = ~/.config/hypr/nvidia.conf' "${HOME}/.config/hypr/hyprland.conf" | wc -l) -eq 0 ]; then
-        echo -e 'source = ~/.config/hypr/nvidia.conf # auto sourced vars for nvidia\n' >> "${HOME}/.config/hypr/hyprland.conf"
+    if nvidia_detect && [ $(grep '^dofile.*nvidia\.lua' "${HOME}/.config/hypr/hyprland.lua" | wc -l) -eq 0 ]; then
+        echo -e 'dofile(home .. "/.config/hypr/nvidia.lua")\n' >> "${HOME}/.config/hypr/hyprland.lua"
     fi
 fi

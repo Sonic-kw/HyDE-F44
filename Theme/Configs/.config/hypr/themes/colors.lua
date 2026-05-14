@@ -1,0 +1,1 @@
+-- wallbash color overrides — populated at runtime by swwwallcache.sh / themeswitch.sh

@@ -69,7 +69,7 @@ source "${scrDir}/globalcontrol.sh"
 
 #// hypr
 
-sed '1d' "${hydeThemeDir}/hypr.theme" > "${confDir}/hypr/themes/theme.conf"
+sed '1d' "${hydeThemeDir}/hypr.theme" > "${confDir}/hypr/themes/theme.lua"
 gtkTheme="$(grep 'gsettings set org.gnome.desktop.interface gtk-theme' "${hydeThemeDir}/hypr.theme" | awk -F "'" '{print $((NF - 1))}')"
 gtkIcon="$(grep 'gsettings set org.gnome.desktop.interface icon-theme' "${hydeThemeDir}/hypr.theme" | awk -F "'" '{print $((NF - 1))}')"
 

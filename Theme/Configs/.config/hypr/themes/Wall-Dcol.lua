@@ -1,0 +1,16 @@
+hl.config({
+    general = {
+        col = {
+            active_border   = "rgba(AD584Fff) rgba(1D202Eff) 45deg",
+            inactive_border = "rgba(312A29ff) rgba(622D28ff) 45deg",
+        },
+    },
+    group = {
+        col = {
+            border_active          = "rgba(312A29ff) rgba(622D28ff) 45deg",
+            border_inactive        = "rgba(22232Acc) rgba(262C48cc) 45deg",
+            border_locked_active   = "rgba(3F2C2Aff) rgba(502E2Aff) 45deg",
+            border_locked_inactive = "rgba(242733cc) rgba(262A3Dcc) 45deg",
+        },
+    },
+})

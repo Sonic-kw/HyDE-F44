@@ -10,7 +10,7 @@ modules_dir="$waybar_dir/modules"
 conf_ctl="$waybar_dir/config.ctl"
 in_file="$waybar_dir/modules/style.css"
 out_file="$waybar_dir/style.css"
-src_file="${confDir}/hypr/themes/theme.conf"
+src_file="${confDir}/hypr/themes/theme.lua"
 
 
 # calculate height from control file or monitor res
@@ -111,7 +111,7 @@ envsubst < $in_file > $out_file
 
 # override rounded couners
 
-hypr_border=`awk -F '=' '{if($1~" rounding ") print $2}' $src_file | sed 's/ //g'`
+hypr_border=`awk -F '=' '{if($1~"rounding") print $2}' $src_file | sed 's/[, ]//g'`
 if [ "$hypr_border" == "0" ] ; then
     sed -i "/border-radius: /c\    border-radius: 0px;" $out_file
 fi

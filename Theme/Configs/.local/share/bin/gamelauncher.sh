@@ -4,7 +4,7 @@
 MODE=${1:-5}
 scrDir=`dirname "$(realpath "$0")"`
 source $scrDir/globalcontrol.sh
-ThemeSet="${confDir}/hypr/themes/theme.conf"
+ThemeSet="${confDir}/hypr/themes/theme.lua"
 RofiConf="${confDir}/rofi/steam/gamelauncher_${MODE}.rasi"
 
 # set rofi override

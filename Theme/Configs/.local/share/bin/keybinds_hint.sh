@@ -14,7 +14,7 @@ source $scrDir/globalcontrol.sh
 
 confDir="${XDG_CONFIG_HOME:-$HOME/.config}"
 keyconfDir="$confDir/hypr"
-keyConf+="$keyconfDir/hyprland.conf $keyconfDir/keybindings.conf $keyconfDir/userprefs.conf"
+keyConf+="$keyconfDir/hyprland.lua $keyconfDir/keybindings.lua $keyconfDir/userprefs.lua"
 tmpMapDir="/tmp"
 tmpMap="$tmpMapDir/hyprdots-keybinds.jq"
 keycodeFile="${hydeConfDir}/keycode.conf"

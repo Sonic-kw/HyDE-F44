@@ -1,18 +1,17 @@
-$HOME/.config/hypr/themes/theme.lua|> $HOME/.config/hypr/themes/colors.lua
 os.execute("gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle-grey'")
 os.execute("gsettings set org.gnome.desktop.interface gtk-theme 'Graphite-Mono'")
 os.execute("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 
 hl.config({
     general = {
-        gaps_in = 8,
-        gaps_out = 14,
-        border_size = 3,
+        gaps_in          = 8,
+        gaps_out         = 14,
+        border_size      = 3,
         col = {
             active_border   = "rgba(d9d9d9ff) rgba(a6a6a6ff) 45deg",
             inactive_border = "rgba(404040cc) rgba(262626cc) 45deg",
         },
-        layout = "dwindle",
+        layout           = "dwindle",
         resize_on_border = true,
     },
     group = {
@@ -25,8 +24,23 @@ hl.config({
     },
     decoration = {
         rounding = 0,
-        shadow = { enabled = true, ignore_window = true, offset = "2 2", range = 15, render_power = 2, color = "0x44FFFFFF" },
-        blur   = { enabled = true, size = 6, passes = 3, new_optimizations = true, ignore_opacity = true, xray = false },
+        shadow = {
+            enabled      = true,
+            ignore_window = true,
+            offset       = "2 2",
+            range        = 15,
+            render_power = 2,
+            color        = "0x44FFFFFF",
+        },
+        blur = {
+            enabled           = true,
+            size              = 6,
+            passes            = 3,
+            new_optimizations = true,
+            ignore_opacity    = true,
+            xray              = false,
+        },
     },
 })
+
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true })

@@ -126,7 +126,7 @@ wallcount="$(echo "${wallpapers}" | wc -l)"
 check_tars() {
     local inVal="${1}"
     local gsLow=$(echo "${inVal}" | tr '[:upper:]' '[:lower:]')
-    local gsVal="$(awk -F"[\"']" '/^[[:space:]]*exec[[:space:]]*=[[:space:]]*gsettings[[:space:]]*set[[:space:]]*org.gnome.desktop.interface[[:space:]]*'${gsLow}'-theme[[:space:]]*/ {last=$2} END {print last}' "${Fav_Theme_Dir}/hypr.theme" )"
+    local gsVal="$(awk -F"[\"']" '/^[[:space:]]*os\.execute\(.*gsettings[[:space:]]*set[[:space:]]*org\.gnome\.desktop\.interface[[:space:]]*'${gsLow}'-theme[[:space:]]*/ {last=$3} END {print last}' "${Fav_Theme_Dir}/hypr.theme" )"
     local trVal
 
     if [ ! -z "${gsVal}" ]; then
