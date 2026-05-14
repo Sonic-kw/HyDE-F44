@@ -9,18 +9,18 @@ hl.config({
         gaps_out = 10,
         border_size = 2,
         col = {
-            active_border   = "rgba(2770C0ff) rgba(1E4C84ff) 45",
-            inactive_border = "rgba(A44185cc) rgba(012339cc) 45",
+            active_border = { colors = {"rgba(2770C0ff)", "rgba(1E4C84ff)"} },
+            inactive_border = { colors = {"rgba(A44185cc)", "rgba(012339cc)"} },
         },
         layout = "dwindle",
         resize_on_border = true,
     },
     group = {
         col = {
-            border_active          = "rgba(2770C0ff) rgba(1E4C84ff) 45",
-            border_inactive        = "rgba(A44185cc) rgba(012339cc) 45",
-            border_locked_active   = "rgba(2770C0ff) rgba(1E4C84ff) 45",
-            border_locked_inactive = "rgba(A44185cc) rgba(012339cc) 45",
+            border_active = { colors = {"rgba(2770C0ff)", "rgba(1E4C84ff)"} },
+            border_inactive = { colors = {"rgba(A44185cc)", "rgba(012339cc)"} },
+            border_locked_active = { colors = {"rgba(2770C0ff)", "rgba(1E4C84ff)"} },
+            border_locked_inactive = { colors = {"rgba(A44185cc)", "rgba(012339cc)"} },
         },
     },
     decoration = {
