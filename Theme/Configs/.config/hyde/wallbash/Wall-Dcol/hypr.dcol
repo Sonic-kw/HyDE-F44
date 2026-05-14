@@ -5,16 +5,16 @@ os.execute("gsettings set org.gnome.desktop.interface color-scheme 'prefer-<wall
 hl.config({
     general = {
         col = {
-            active_border   = "rgba(<wallbash_pry4>ff) rgba(<wallbash_4xa1>ff) 45deg",
-            inactive_border = "rgba(<wallbash_pry1>ff) rgba(<wallbash_pry2>ff) 45deg",
+            active_border   = "rgba(<wallbash_pry4>ff) rgba(<wallbash_4xa1>ff) 45",
+            inactive_border = "rgba(<wallbash_pry1>ff) rgba(<wallbash_pry2>ff) 45",
         },
     },
     group = {
         col = {
-            border_active          = "rgba(<wallbash_pry4>ff) rgba(<wallbash_4xa1>ff) 45deg",
-            border_inactive        = "rgba(<wallbash_pry1>cc) rgba(<wallbash_pry2>cc) 45deg",
-            border_locked_active   = "rgba(<wallbash_txt3>ff) rgba(<wallbash_txt4>ff) 45deg",
-            border_locked_inactive = "rgba(<wallbash_txt1>cc) rgba(<wallbash_txt2>cc) 45deg",
+            border_active          = "rgba(<wallbash_pry4>ff) rgba(<wallbash_4xa1>ff) 45",
+            border_inactive        = "rgba(<wallbash_pry1>cc) rgba(<wallbash_pry2>cc) 45",
+            border_locked_active   = "rgba(<wallbash_txt3>ff) rgba(<wallbash_txt4>ff) 45",
+            border_locked_inactive = "rgba(<wallbash_txt1>cc) rgba(<wallbash_txt2>cc) 45",
         },
     },
 })

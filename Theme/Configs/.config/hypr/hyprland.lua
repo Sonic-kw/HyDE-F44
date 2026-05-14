@@ -60,7 +60,7 @@ hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 
 -- ── Layouts ───────────────────────────────────────────────────────────
 hl.config({
-    dwindle = { pseudotile = true, preserve_split = true },
+    dwindle = { preserve_split = true },
     master  = { new_status = "master" },
 })
 
