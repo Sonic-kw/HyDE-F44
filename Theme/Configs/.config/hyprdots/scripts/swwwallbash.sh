@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# serialize concurrent runs (Wall-Ways cp races overwrite deployed files)
+
+lockFile="/tmp/hyde$(id -u)$(basename "${0}").lock"
+exec 9>"${lockFile}"
+flock 9
+trap 'flock -u 9' EXIT
+
+
 # set variables
 
 export ScrDir=`dirname "$(realpath "$0")"`
